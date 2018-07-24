@@ -18,6 +18,15 @@ arrayToParse =
 """
 
 
+type JsonValue
+    = ObjectValue (List ( String, JsonValue ))
+    | ArrayValue (List JsonValue)
+    | BoolValue Bool
+    | NullValue
+    | NumericValue Float
+    | StringValue String
+
+
 string : (String -> a) -> Parser a
 string parsed =
     succeed parsed
@@ -110,12 +119,3 @@ nextValue =
             |. symbol ","
             |. spaces
             |= jsonValue
-
-
-type JsonValue
-    = ObjectValue (List ( String, JsonValue ))
-    | ArrayValue (List JsonValue)
-    | BoolValue Bool
-    | NullValue
-    | NumericValue Float
-    | StringValue String
